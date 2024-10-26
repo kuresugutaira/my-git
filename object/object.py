@@ -1,5 +1,4 @@
 import hashlib
-from typing import Optional
 from object_type import Type, NewType
 import io
 
@@ -10,7 +9,7 @@ class Object:
     self.size = size
     self.data = data
 
-def _read_null_terminated_string(f: io.BufferedReader, sha1: hashlib._Hash) -> Optional[str]:
+def _read_null_terminated_string(f: io.BufferedReader, sha1: hashlib._Hash) -> str:
   '''
   ヌル終端文字列を読み込んで返す関数。
   読み込んだbyteでsha1の更新も行う。
@@ -44,7 +43,7 @@ def _read_header(f: io.BufferedReader, sha1: hashlib._Hash) -> tuple[Type, int]:
   except Exception:
     raise
 
-def read_object(file_path: str) -> Optional[Object]:
+def read_object(file_path: str) -> Object:
   hash: hashlib._Hash = hashlib.sha1()
   try:
     with open(file_path, mode='rb') as f:
