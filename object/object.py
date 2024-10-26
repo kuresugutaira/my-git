@@ -1,6 +1,6 @@
 import hashlib
 from typing import Optional
-from object.object_type import Type, NewType
+from object_type import Type, NewType
 import io
 
 class Object:
@@ -58,7 +58,5 @@ def read_object(file_path: str) -> Optional[Object]:
       data: bytes = f.read()
       hash.update(data)
       return Object(hash, type, size, data)
-
-  except FileNotFoundError:
-    print("File not found.")
-    return None
+  except Exception:
+    raise
